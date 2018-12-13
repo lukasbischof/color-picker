@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+@keyframes CPBackgroundShow {
+  0% {
+    opacity: .4;
+    transform: scale(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes CPWrapperShow {
+  0% {
+    background-color: transparent;
+  }
+
+  100% {
+    background-color: rgba(0, 0, 0, .3);
+  }
+}
+
+@keyframes blinkLight {
+  0% {
+    border-color: #e1e1e1
+  }
+
+  50% {
+    border-color: #fff
+  }
+
+  100% {
+    border-color: #e1e1e1;
+  }
+}
+
+@keyframes blinkDark {
+  0% {
+    border-color: black;
+  }
+
+  50% {
+    border-color: #7d7d7d
+  }
+
+  100% {
+    border-color: black;
+  }
+}

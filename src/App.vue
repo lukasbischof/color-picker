@@ -1,28 +1,35 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld/>
+  <div id="color-picker">
+    <div class="wrapper"></div>
+    <div class="window">
+      <div class="header">
+        <span>Color Picker</span>
+        <segmented-control />
+      </div>
+      <div class="body">
+        <div class="container">
+          <wheel />
+        </div>
+      </div>
+      <color-picker-footer />
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+  import SegmentedControl from '@/components/SegmentedControl';
+  import ColorPickerFooter from '@/components/Footer';
+  import Wheel from '@/components/panels/Wheel';
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  export default {
+    name: 'App',
+    components: {
+      SegmentedControl,
+      Wheel,
+      ColorPickerFooter
+    }
+  };
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style src="./color-picker.scss" lang="scss" scoped></style>
+<style src="./color-picker-animations.css"></style>

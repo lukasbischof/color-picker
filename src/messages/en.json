@@ -1,0 +1,3 @@
+{
+  "no_canvas_context": "Cannot initialize the canvas context. Please use the Pallet or the RGB form."
+}
