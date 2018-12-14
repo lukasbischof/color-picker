@@ -8,7 +8,7 @@
       </div>
       <div class="body">
         <div class="container">
-          <wheel />
+          <wheel @error="logError" />
         </div>
       </div>
       <color-picker-footer />
@@ -27,7 +27,12 @@
       SegmentedControl,
       Wheel,
       ColorPickerFooter
-    }
+    },
+    methods: {
+      logError(error) {
+        console.log(error);
+      }
+    },
   };
 </script>
 

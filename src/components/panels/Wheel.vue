@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div class="preview-bar" ref="preview"></div>
-    <div class="messages" v-if="!ctx">
+    <div ref="preview" class="preview-bar"></div>
+    <div v-if="!ctx" class="messages">
       <p class="error-message">{{ messages.no_canvas_context }}</p>
     </div>
     <canvas 
       ref="canvas" 
-      height="177" 
-      width="177"></canvas>
+      :height="canvas.size"
+      :width="canvas.size"></canvas>
   </div>
 </template>
 
@@ -35,6 +35,8 @@
   canvas {
     margin-left: 111.5px;
     margin-top: 13px;
+    width: 177px;
+    height: 177px;
   }
 </style>
 
@@ -43,17 +45,21 @@
   import circleImage from "@/assets/circleImage";
   import { Vec2, Vec2Substract } from "@/math/Vec2";
   import Color from "@/models/Color";
+  import ColorPickerEventTypes from "@/event";
 
   function getColorAtPoint(ctx, x, y) {
     const data = ctx.getImageData(x, y, 1, 1).data;
     if (!data)
       return undefined;
 
-    return new Color(data[0], data[1], data[2], data[3]);
+    return new Color(...data);
   }
 
   export default {
     data() {
+      const scale = window.devicePixelRatio || 1;
+      const actualSize = 177;
+
       return {
         messages: {
           no_canvas_context: I18n.no_canvas_context
@@ -62,6 +68,11 @@
         marker: {
           markX: 0,
           markY: 0
+        },
+        canvas: {
+          scale,
+          actualSize: actualSize,
+          size: actualSize * scale
         }
       };
     },
@@ -71,19 +82,13 @@
       const ctx = canvas.getContext('2d');
 
       if (!ctx) {
-        // todo
-        // new AutoDispatchingColorPickerEvent(eventTypes.ColorPickerErrorEvent, {
-        //   'description': 'no canvas context'
-        // });
-
-        // return new Element(container, function() {
-        //   return new Color(0, 0, 0, 1);
-        // });
+        ColorPickerEventTypes.Error('no canvas context').dispatch(this);
 
         return;
       }
 
       this.ctx = ctx;
+      this.ctx.scale(this.canvas.scale, this.canvas.scale);
 
       this.loadBackground(image => {
         this.drawBackground(image);
@@ -91,7 +96,7 @@
 
         this.ctx.canvas.addEventListener('mousedown', e => {
           const mouseMove = e => {
-            this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+            this.ctx.clearRect(0, 0, this.canvas.actualSize, this.canvas.actualSize);
             this.drawBackground(image);
             this.drawMark(e.offsetX - 6, e.offsetY - 6);
             this.$refs.preview.style.backgroundColor = getColorAtPoint(ctx, this.marker.markX, this.marker.markY).cssRGBA;
@@ -104,7 +109,7 @@
             this.ctx.canvas.removeEventListener('mousemove', mouseMove, false);
           });
         });
-      })
+      });
     },
 
     methods: {
@@ -115,12 +120,12 @@
       },
 
       drawBackground(image) {
-        this.ctx.drawImage(image, 0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        this.ctx.drawImage(image, 0, 0, this.canvas.actualSize, this.canvas.actualSize);
       },
 
       drawMark(x, y) {
         const radMin = 6;
-        const radius = this.ctx.canvas.width / 2;
+        const radius = this.canvas.actualSize / 2;
         const center = new Vec2(radius, radius);
         const pos = Vec2Substract(center, new Vec2(x, y));
 
@@ -131,14 +136,16 @@
         }
 
         this.ctx.beginPath();
-        this.ctx.strokeStyle = 'white';
-        this.ctx.lineWidth += 2;
-        this.ctx.arc(x, y, radMin, 0, Math.PI * 2, true);
-        this.ctx.stroke();
-        this.ctx.lineWidth -= 2;
-
+        this.ctx.lineWidth = 2;
         this.ctx.strokeStyle = 'black';
         this.ctx.arc(x, y, radMin + 2, 0, Math.PI * 2, true);
+        this.ctx.stroke();
+        this.ctx.closePath();
+
+        this.ctx.beginPath();
+        this.ctx.lineWidth = 1;
+        this.ctx.strokeStyle = 'white';
+        this.ctx.arc(x, y, radMin, 0, Math.PI * 2, true);
         this.ctx.stroke();
         this.ctx.closePath();
 

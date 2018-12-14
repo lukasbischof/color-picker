@@ -20,6 +20,7 @@ module.exports = {
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'semi': 2,
-    'vue/html-self-closing': 0
+    'vue/html-self-closing': 0,
+    'vue/max-attributes-per-line': 0
   }
 };
