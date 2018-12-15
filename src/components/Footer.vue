@@ -1,7 +1,7 @@
-<template>
+<template functional>
   <div class="footer">
     <div class="button cancel">cancel</div>
-    <div class="button chose">choose</div>
+    <div class="button choose">choose</div>
   </div>
 </template>
 
@@ -34,7 +34,7 @@
       color: rgb(236, 0, 0);
     }
 
-    &.chose {
+    &.choose {
       right: 0;
       border-left-width: 1px;
       border-left-style: solid;

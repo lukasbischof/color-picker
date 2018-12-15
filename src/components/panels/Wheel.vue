@@ -78,16 +78,14 @@
     },
 
     mounted() {
-      const canvas = this.$refs.canvas;
-      const ctx = canvas.getContext('2d');
+      this.ctx = this.$refs.canvas.getContext('2d');
 
-      if (!ctx) {
+      if (!this.ctx) {
         ColorPickerEventTypes.Error('no canvas context').dispatch(this);
 
         return;
       }
 
-      this.ctx = ctx;
       this.ctx.scale(this.canvas.scale, this.canvas.scale);
 
       this.loadBackground(image => {
