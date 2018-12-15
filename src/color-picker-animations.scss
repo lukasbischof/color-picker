@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-@keyframes CPBackgroundShow {
+@keyframes color-picker-background-show {
   0% {
     opacity: .4;
     transform: scale(0);
@@ -12,7 +12,7 @@
   }
 }
 
-@keyframes CPWrapperShow {
+@keyframes color-picker-wrapper-show {
   0% {
     background-color: transparent;
   }
@@ -22,7 +22,7 @@
   }
 }
 
-@keyframes blinkLight {
+@keyframes color-picker-blink-light {
   0% {
     border-color: #e1e1e1
   }
@@ -36,7 +36,7 @@
   }
 }
 
-@keyframes blinkDark {
+@keyframes color-picker-blink-dark {
   0% {
     border-color: black;
   }

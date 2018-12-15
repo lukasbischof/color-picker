@@ -37,4 +37,4 @@
 </script>
 
 <style src="./color-picker.scss" lang="scss" scoped></style>
-<style src="./color-picker-animations.css"></style>
+<style src="./color-picker-animations.scss" lang="scss"></style>
