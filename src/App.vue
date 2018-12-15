@@ -1,6 +1,7 @@
 <template>
   <div id="color-picker">
-    <div class="wrapper"></div>
+    <div class="wrapper">
+    </div>
     <div class="window">
       <div class="header">
         <span>Color Picker</span>
