@@ -24,16 +24,16 @@
 
   export default {
     name: 'App',
-    data() {
-      return {
-        segmentedControl: registeredSegmentedControl
-      };
-    },
     components: {
       SegmentedControlHeader,
       SegmentedControlBody,
       ColorPickerFooter,
       ...segmentedControlComponents,
+    },
+    data() {
+      return {
+        segmentedControl: registeredSegmentedControl
+      };
     },
     methods: {
       logError(error) {

@@ -3,7 +3,10 @@ import { Segment, SegmentedControl } from "./SegmentedControl";
 
 export default Vue.component('segmented-control-body', {
   props: {
-    segmentedControl: SegmentedControl
+    segmentedControl: {
+      type: SegmentedControl,
+      required: true
+    }
   },
   render(h) {
     return (

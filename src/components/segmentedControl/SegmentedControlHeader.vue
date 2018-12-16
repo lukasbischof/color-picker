@@ -2,10 +2,10 @@
   <div class="segmented-control-header">
     <div v-for="segment in segmentedControl.segments"
          :key="segment.id"
+         :class="{active: segment === segmentedControl.activeSegment}"
          class="segment"
-         :class="{active: segment == segmentedControl.activeSegment}"
          @click="switchSegment(segment)">
-      {{segment.name}}
+      {{ segment.name }}
     </div>
   </div>
 </template>
@@ -52,7 +52,10 @@
 
   export default {
     props: {
-      segmentedControl: SegmentedControl
+      segmentedControl: {
+        type: SegmentedControl,
+        required: true
+      }
     },
     methods: {
       switchSegment(segment) {
