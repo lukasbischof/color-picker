@@ -1,14 +1,17 @@
 <template>
-  <div class="segmented-control">
-    <div class="segment active">Circle</div>
-    <div class="segment">Spectrum</div>
-    <div class="segment">Pallet</div>
-    <div class="segment">RGBA</div>
+  <div class="segmented-control-header">
+    <div v-for="segment in segmentedControl.segments"
+         :key="segment.id"
+         class="segment"
+         :class="{active: segment == segmentedControl.activeSegment}"
+         @click="switchSegment(segment)">
+      {{segment.name}}
+    </div>
   </div>
 </template>
 
 <style lang="scss">
-  .segmented-control {
+  .segmented-control-header {
     width: 100%;
     height: 20px;
     margin-left: 0;
@@ -45,7 +48,16 @@
 </style>
 
 <script>
-  export default {
+  import { SegmentedControl } from "./SegmentedControl";
 
+  export default {
+    props: {
+      segmentedControl: SegmentedControl
+    },
+    methods: {
+      switchSegment(segment) {
+        this.segmentedControl.activate(segment);
+      }
+    }
   };
 </script>

@@ -1,16 +1,13 @@
 <template>
   <div id="color-picker">
-    <div class="wrapper">
-    </div>
+    <div class="wrapper"></div>
     <div class="window">
       <div class="header">
         <span>Color Picker</span>
-        <segmented-control />
+        <segmented-control-header :segmented-control="segmentedControl" />
       </div>
       <div class="body">
-        <div class="container">
-          <wheel @error="logError" />
-        </div>
+        <segmented-control-body :segmented-control="segmentedControl" />
       </div>
       <color-picker-footer />
     </div>
@@ -18,16 +15,25 @@
 </template>
 
 <script>
-  import SegmentedControl from '@/components/SegmentedControl';
   import ColorPickerFooter from '@/components/Footer';
-  import Wheel from '@/components/panels/Wheel';
+  import {
+    SegmentedControlHeader,
+    SegmentedControlBody
+  } from "@/components/segmentedControl/SegmentedControl";
+  import registeredSegmentedControl, { segmentedControlComponents } from "./registeredSegmentedControl";
 
   export default {
     name: 'App',
+    data() {
+      return {
+        segmentedControl: registeredSegmentedControl
+      };
+    },
     components: {
-      SegmentedControl,
-      Wheel,
-      ColorPickerFooter
+      SegmentedControlHeader,
+      SegmentedControlBody,
+      ColorPickerFooter,
+      ...segmentedControlComponents,
     },
     methods: {
       logError(error) {
