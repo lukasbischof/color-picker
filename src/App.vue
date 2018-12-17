@@ -20,7 +20,10 @@
     SegmentedControlHeader,
     SegmentedControlBody
   } from "@/components/segmentedControl/SegmentedControl";
-  import registeredSegmentedControl, { segmentedControlComponents } from "./registeredSegmentedControl";
+  import Wheel from '@/components/panels/Wheel';
+  import Spectrum from '@/components/panels/Spectrum';
+  import { Segment, SegmentedControl } from "./components/segmentedControl/SegmentedControl";
+
 
   export default {
     name: 'App',
@@ -28,11 +31,15 @@
       SegmentedControlHeader,
       SegmentedControlBody,
       ColorPickerFooter,
-      ...segmentedControlComponents,
+      Wheel,
+      Spectrum,
     },
     data() {
       return {
-        segmentedControl: registeredSegmentedControl
+        segmentedControl: new SegmentedControl([
+          new Segment('circle', 'Circle', h => <Wheel onError={this.logError} />),
+          new Segment('spectrum', 'Spectrum', h => (<Spectrum onError={this.logError} />))
+        ])
       };
     },
     methods: {

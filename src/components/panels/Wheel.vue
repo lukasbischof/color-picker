@@ -11,25 +11,14 @@
   </div>
 </template>
 
-<style lang="scss">
+<style src="../shared/errors.scss" lang="scss"></style>
+<style lang="scss" scoped>
   .preview-bar {
     width: 392px;
     height: 50px;
     margin-left: 4px;
     margin-top: 6px;
     background-color: rgb(0, 255, 0);
-  }
-
-  .messages {
-    padding: 10px 0;
-
-    .error-message {
-      font-family: sans-serif;
-      color: gray;
-      margin-top: 43px;
-      user-select: none;
-      text-align: center;
-    }
   }
 
   canvas {
@@ -44,20 +33,12 @@
   import I18n from '@/messages/en';
   import circleImage from "@/assets/circleImage";
   import { Vec2, Vec2Substract } from "@/math/Vec2";
-  import Color from "@/models/Color";
   import ColorPickerEventTypes from "@/event";
-
-  function getColorAtPoint(ctx, x, y) {
-    const data = ctx.getImageData(x, y, 1, 1).data;
-    if (!data)
-      return undefined;
-
-    return new Color(...data);
-  }
+  import { getColorAtPoint, deviceScale } from "../shared/helpers";
 
   export default {
     data() {
-      const scale = window.devicePixelRatio || 1;
+      const scale = deviceScale();
       const actualSize = 177;
 
       return {
@@ -97,7 +78,8 @@
             this.ctx.clearRect(0, 0, this.canvas.actualSize, this.canvas.actualSize);
             this.drawBackground(image);
             this.drawMark(e.offsetX - 6, e.offsetY - 6);
-            this.$refs.preview.style.backgroundColor = getColorAtPoint(ctx, this.marker.markX, this.marker.markY).cssRGBA;
+            const backgroundColor = getColorAtPoint(this.ctx, this.marker.markX, this.marker.markY, this.canvas.scale).cssRGBA;
+            this.$refs.preview.style.backgroundColor = backgroundColor;
           };
 
           mouseMove(e); // To move the mark at the right position

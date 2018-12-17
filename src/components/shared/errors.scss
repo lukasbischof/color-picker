@@ -1,0 +1,11 @@
+.messages {
+  padding: 10px 0;
+
+  .error-message {
+    font-family: sans-serif;
+    color: gray;
+    margin-top: 43px;
+    user-select: none;
+    text-align: center;
+  }
+}
