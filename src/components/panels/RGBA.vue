@@ -5,11 +5,11 @@
       <div v-for="element in elements" :key="element.id" class="rgba-group">
         <input :id="element.id"
                :placeholder="element.name"
-               :min="element.min"
                :max="element.max"
-               :title="`${element.name} (minimum: ${element.min}, maximum: ${element.max})`"
+               :title="`${element.name} (minimum: 0, maximum: ${element.max})`"
                :step="element.step"
                v-model="element.value"
+               min="0"
                type="number"
                class="rgba-input">
         <label :for="element.id" class="rgba-input-label">{{ element.short }}</label>
@@ -21,13 +21,13 @@
 <script>
   import Color from "../../models/Color";
 
-  function element(min, max, value, name, step = 1) {
+  function element(max, value, name, step = 1) {
     return {
-      min,
       max,
       value,
       name,
       step,
+
       get id() {
         return name.toLowerCase();
       },
@@ -43,10 +43,10 @@
     data() {
       return {
         elements: [
-          element(0, 255, 0, 'Red'),
-          element(0, 255, 255, 'Green'),
-          element(0, 255, 0, 'Blue'),
-          element(0, 1, 1, 'Alpha', 0.1)
+          element(255, 0, 'Red'),
+          element(255, 255, 'Green'),
+          element(255, 0, 'Blue'),
+          element(1, 1, 'Alpha', 0.1)
         ]
       };
     },
