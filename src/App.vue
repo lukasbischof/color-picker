@@ -22,6 +22,7 @@
   } from "@/components/segmentedControl/SegmentedControl";
   import Wheel from '@/components/panels/Wheel';
   import Spectrum from '@/components/panels/Spectrum';
+  import Palette from "@/components/panels/Palette";
   import { Segment, SegmentedControl } from "./components/segmentedControl/SegmentedControl";
 
 
@@ -33,12 +34,15 @@
       ColorPickerFooter,
       Wheel,
       Spectrum,
+      Palette
     },
     data() {
       return {
         segmentedControl: new SegmentedControl([
           new Segment('circle', 'Circle', h => <Wheel onError={this.logError} />),
-          new Segment('spectrum', 'Spectrum', h => (<Spectrum onError={this.logError} />))
+          new Segment('spectrum', 'Spectrum', h => <Spectrum onError={this.logError} />),
+          new Segment('palette', 'Palette', h => <Palette onError={this.logError} />),
+          new Segment('rgba', 'RGBA', h => <Palette onError={this.logError} />)
         ])
       };
     },

@@ -11,6 +11,7 @@
     border-top: 1px solid #e4e4e4;
     flex-grow: 0;
     display: flex;
+    flex-shrink: 0;
   }
 
   .button {
