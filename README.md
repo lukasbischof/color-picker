@@ -2,6 +2,8 @@
 
 > A minimal color picker js library
 
+<img width="645" alt="color-picker" src="https://user-images.githubusercontent.com/8350985/50245892-01396700-03d4-11e9-952b-ac32fed4603e.png">
+
 ## Build Setup
 
 ``` bash
