@@ -1,6 +1,6 @@
 <template>
   <div id="color-picker">
-    <div class="wrapper"></div>
+    <div class="wrapper" @click="dismiss"></div>
     <div class="window">
       <div class="header">
         <span>{{ i18n.title }}</span>
@@ -9,7 +9,7 @@
       <div class="body">
         <segmented-control-body :segmented-control="segmentedControl" />
       </div>
-      <color-picker-footer />
+      <color-picker-footer @cancel="dismiss" @choose="chooseButtonClicked" />
     </div>
   </div>
 </template>
@@ -26,6 +26,7 @@
   import RGBA from '@/components/panels/RGBA';
   import { Segment, SegmentedControl } from './components/segmentedControl/SegmentedControl';
   import I18n from '@/messages/en';
+  import ColorPickerEventTypes from './event';
 
   export default {
     name: 'App',
@@ -52,7 +53,18 @@
     },
     methods: {
       logError(error) {
-        console.log(error);
+        error.dispatch(this);
+      },
+      dismiss() {
+        console.log('dismiss');
+        ColorPickerEventTypes.Dismiss().dispatch(this);
+      },
+      chooseButtonClicked() {
+
+      },
+      colorChosen(color) {
+        console.log('chose ' + color);
+        ColorPickerEventTypes.Dismiss(color).dispatch(this);
       }
     },
   };

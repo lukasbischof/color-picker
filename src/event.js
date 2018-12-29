@@ -19,4 +19,10 @@ export default class ColorPickerEventTypes {
       message
     });
   }
+
+  static Dismiss(color = undefined) {
+    return new ColorPickerEvent('dismiss', {
+      color
+    });
+  }
 }

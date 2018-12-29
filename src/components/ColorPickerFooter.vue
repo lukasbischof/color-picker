@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
-    <div class="button cancel">{{ i18n.cancel }}</div>
-    <div class="button choose">{{ i18n.choose }}</div>
+    <div class="button cancel" @click="cancel">{{ i18n.cancel }}</div>
+    <div class="button choose" @click="choose">{{ i18n.choose }}</div>
   </div>
 </template>
 
@@ -53,6 +53,15 @@
       return {
         i18n: I18n.components.footer
       };
+    },
+    methods: {
+      cancel() {
+        this.$emit('cancel');
+      },
+
+      choose() {
+        this.$emit('choose');
+      }
     }
   };
 </script>
