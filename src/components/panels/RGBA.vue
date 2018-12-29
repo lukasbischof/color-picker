@@ -82,6 +82,7 @@
     display: grid;
     grid-template: repeat(2, 1fr) / repeat(2, 1fr);
     justify-items: center;
+    margin-top: 2rem;
     height: 130px;
     width: 100%;
   }
@@ -117,8 +118,9 @@
   }
 
   .rgba-group > .rgba-input-label {
-    background-color: $border-color;
+    background-color: lighten($border-color, 18);
     border: 1px solid $border-color;
+    border-left: none;
     border-radius: 0 4px 4px 0;
     box-sizing: border-box;
     cursor: default;
