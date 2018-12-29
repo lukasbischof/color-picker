@@ -27,6 +27,7 @@
   import { Segment, SegmentedControl } from './components/segmentedControl/SegmentedControl';
   import I18n from '@/messages/en';
   import ColorPickerEventTypes from './event';
+  import Color from './models/Color';
 
   export default {
     name: 'App',
@@ -43,12 +44,13 @@
       const i18n = I18n.components.app;
       return {
         segmentedControl: new SegmentedControl([
-          new Segment('circle', i18n.segmentedControl.wheel, h => <Wheel onError={this.logError} />),
+          new Segment('circle', i18n.segmentedControl.wheel, h => <Wheel onError={this.logError} on-input={c => this.currentColor = c} />),
           new Segment('spectrum', i18n.segmentedControl.spectrum, h => <Spectrum onError={this.logError} />),
           new Segment('palette', i18n.segmentedControl.palette, h => <Palette onError={this.logError} />),
           new Segment('rgba', i18n.segmentedControl.rgba, h => <RGBA onError={this.logError} />)
         ]),
-        i18n
+        i18n,
+        currentColor: new Color(0, 255, 0)
       };
     },
     methods: {
@@ -60,7 +62,7 @@
         ColorPickerEventTypes.Dismiss().dispatch(this);
       },
       chooseButtonClicked() {
-
+        this.colorChosen(this.currentColor);
       },
       colorChosen(color) {
         console.log('chose ' + color);

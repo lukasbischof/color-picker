@@ -35,8 +35,16 @@
   import { Vec2, Vec2Substract } from '@/math/Vec2';
   import ColorPickerEventTypes from '@/event';
   import { getColorAtPoint, deviceScale } from '../shared/helpers';
+  import Color from '@/models/Color';
 
   export default {
+    props: {
+      value: {
+        type: Color,
+        default: () => new Color(0, 255, 0)
+      }
+    },
+
     data() {
       const scale = deviceScale();
       const actualSize = 177;
@@ -52,7 +60,7 @@
           scale,
           actualSize: actualSize,
           size: actualSize * scale
-        }
+        },
       };
     },
 
@@ -76,8 +84,9 @@
             this.ctx.clearRect(0, 0, this.canvas.actualSize, this.canvas.actualSize);
             this.drawBackground(image);
             this.drawMark(e.offsetX - 6, e.offsetY - 6);
-            const backgroundColor = getColorAtPoint(this.ctx, this.marker.markX, this.marker.markY, this.canvas.scale).cssRGBA;
-            this.$refs.preview.style.backgroundColor = backgroundColor;
+            const currentColor = getColorAtPoint(this.ctx, this.marker.markX, this.marker.markY, this.canvas.scale);
+            this.$refs.preview.style.backgroundColor = currentColor.cssHex;
+            this.$emit('input', currentColor);
           };
 
           mouseMove(e); // To move the mark at the right position
