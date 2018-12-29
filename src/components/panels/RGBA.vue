@@ -2,7 +2,7 @@
   <div>
     <div :style="'background-color: ' + backgroundColor" class="preview"></div>
     <div class="container">
-      <div v-for="element in elements" :key="element.id" class="rgba-group">
+      <div v-for="element in elements" :key="element.id" :class="{ active: element.active }" class="rgba-group">
         <input :id="element.id"
                :placeholder="element.name"
                :max="element.max"
@@ -11,7 +11,9 @@
                v-model="element.value"
                min="0"
                type="number"
-               class="rgba-input">
+               class="rgba-input"
+               @focus="element.focus(true)"
+               @blur="element.focus(false)">
         <label :for="element.id" class="rgba-input-label">{{ element.short }}</label>
       </div>
     </div>
@@ -19,7 +21,7 @@
 </template>
 
 <script>
-  import Color from "../../models/Color";
+  import Color from '@/models/Color';
 
   function element(max, value, name, step = 1) {
     return {
@@ -27,14 +29,16 @@
       value,
       name,
       step,
-
+      active: false,
       get id() {
         return name.toLowerCase();
       },
-
       get short() {
         return name[0];
-      }
+      },
+      focus(active) {
+        this.active = active;
+      },
     };
   }
 
@@ -62,51 +66,66 @@
 </script>
 
 <style lang="scss" scoped>
+  $border-color: #b3b3b3;
+  $input-height: 40px;
+
   .preview {
-    width: 392px;
-    height: 50px;
+    background-color: rgb(0, 255, 0);
     margin-left: 4px;
     margin-top: 6px;
-    background-color: rgb(0, 255, 0);
+    width: 392px;
+    height: 50px;
   }
 
   .container {
+    align-items: center;
     display: grid;
     grid-template: repeat(2, 1fr) / repeat(2, 1fr);
     justify-items: center;
-    align-items: center;
     height: 130px;
     width: 100%;
   }
 
   .rgba-group {
-    $input-height: 40px;
-    $border-color: #9c9c9c;
-
     display: flex;
 
-    .rgba-input {
-      width: 80px;
-      height: $input-height;
-      vertical-align: middle;
-      border: 1px solid $border-color;
-      border-radius: 4px 0 0 4px;
-      background-color: transparent;
-      font-family: "Helvatica neue", sans-serif;
-      font-size: 16px;
-      padding: 0 10px;
-      box-sizing: border-box;
-    }
+    &.active {
+      outline: #d5d5ff auto 5px;
 
-    .rgba-input-label {
-      width: 40px;
-      height: $input-height;
-      line-height: $input-height;
-      text-align: center;
-      background-color: $border-color;
-      border-radius: 0 4px 4px 0;
-      user-select: none;
-      cursor: default;
+      .rgba-input-label {
+        border: 1px solid adjust-color($border-color, 0, 0, 100);
+      }
     }
+  }
+
+  .rgba-group > .rgba-input {
+    background-color: transparent;
+    border: 1px solid $border-color;
+    border-radius: 4px 0 0 4px;
+    box-sizing: border-box;
+    font-family: "Helvatica neue", sans-serif;
+    font-size: 16px;
+    padding: 0 10px;
+    vertical-align: middle;
+    width: 80px;
+    height: $input-height;
+
+    &:focus {
+      border-color: adjust-color($border-color, 0, 0, 100);
+      outline: none;
+    }
+  }
+
+  .rgba-group > .rgba-input-label {
+    background-color: $border-color;
+    border: 1px solid $border-color;
+    border-radius: 0 4px 4px 0;
+    box-sizing: border-box;
+    cursor: default;
+    line-height: $input-height;
+    text-align: center;
+    user-select: none;
+    width: 40px;
+    height: $input-height;
   }
 </style>

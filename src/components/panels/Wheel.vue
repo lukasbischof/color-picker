@@ -4,8 +4,8 @@
     <div v-if="!ctx" class="messages">
       <p class="error-message">{{ messages.no_canvas_context }}</p>
     </div>
-    <canvas 
-      ref="canvas" 
+    <canvas
+      ref="canvas"
       :height="canvas.size"
       :width="canvas.size"></canvas>
   </div>
@@ -42,9 +42,7 @@
       const actualSize = 177;
 
       return {
-        messages: {
-          no_canvas_context: I18n.no_canvas_context
-        },
+        messages: I18n.shared.messages,
         ctx: undefined,
         marker: {
           markX: 0,

@@ -1,7 +1,7 @@
-<template functional>
+<template>
   <div class="footer">
-    <div class="button cancel">cancel</div>
-    <div class="button choose">choose</div>
+    <div class="button cancel">{{ i18n.cancel }}</div>
+    <div class="button choose">{{ i18n.choose }}</div>
   </div>
 </template>
 
@@ -45,7 +45,14 @@
 </style>
 
 <script>
-  export default {
+  import I18n from '@/messages/en';
 
+  export default {
+    name: 'ColorPickerFooter',
+    data() {
+      return {
+        i18n: I18n.components.footer
+      };
+    }
   };
 </script>

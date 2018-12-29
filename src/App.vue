@@ -3,7 +3,7 @@
     <div class="wrapper"></div>
     <div class="window">
       <div class="header">
-        <span>Color Picker</span>
+        <span>{{ i18n.title }}</span>
         <segmented-control-header :segmented-control="segmentedControl" />
       </div>
       <div class="body">
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import ColorPickerFooter from '@/components/Footer';
+  import ColorPickerFooter from '@/components/ColorPickerFooter';
   import {
     SegmentedControlHeader,
     SegmentedControlBody
@@ -25,7 +25,7 @@
   import Palette from "@/components/panels/Palette";
   import RGBA from "@/components/panels/RGBA";
   import { Segment, SegmentedControl } from "./components/segmentedControl/SegmentedControl";
-
+  import I18n from '@/messages/en';
 
   export default {
     name: 'App',
@@ -39,13 +39,15 @@
       RGBA
     },
     data() {
+      const i18n = I18n.components.app;
       return {
         segmentedControl: new SegmentedControl([
-          new Segment('circle', 'Circle', h => <Wheel onError={this.logError} />),
-          new Segment('spectrum', 'Spectrum', h => <Spectrum onError={this.logError} />),
-          new Segment('palette', 'Palette', h => <Palette onError={this.logError} />),
-          new Segment('rgba', 'RGBA', h => <RGBA onError={this.logError} />)
-        ])
+          new Segment('circle', i18n.segmentedControl.wheel, h => <Wheel onError={this.logError} />),
+          new Segment('spectrum', i18n.segmentedControl.spectrum, h => <Spectrum onError={this.logError} />),
+          new Segment('palette', i18n.segmentedControl.palette, h => <Palette onError={this.logError} />),
+          new Segment('rgba', i18n.segmentedControl.rgba, h => <RGBA onError={this.logError} />)
+        ]),
+        i18n
       };
     },
     methods: {

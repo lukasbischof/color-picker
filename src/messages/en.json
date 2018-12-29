@@ -1,3 +1,22 @@
 {
-  "no_canvas_context": "Cannot initialize the canvas context. Please use the Pallet or the RGB form."
+  "shared": {
+    "messages": {
+      "no_canvas_context": "Cannot initialize the canvas context. Please use the Pallet or the RGB form."
+    }
+  },
+  "components": {
+    "app": {
+      "title": "Color Picker",
+      "segmentedControl": {
+        "wheel": "Wheel",
+        "spectrum": "Spectrum",
+        "palette": "Palette",
+        "rgba": "RGBA"
+      }
+    },
+    "footer": {
+      "cancel": "cancel",
+      "choose": "choose"
+    }
+  }
 }

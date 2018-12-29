@@ -42,9 +42,7 @@
 
       return {
         ctx: undefined,
-        messages: {
-          no_canvas_context: I18n.no_canvas_context
-        },
+        messages: I18n.shared.messages,
         marker: {
           x: 0,
           y: 0
