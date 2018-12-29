@@ -16,7 +16,7 @@ export default class Color {
 
     this.hex = (r << 16) | (g << 8) | b;
     this.cssRGBA = `rgba(${[r, g, b, a].join(',')})`;
-    this.cssHex = '#' + [r, g, b].map(n => n.toString().padStart(2, '0')).join();
+    this.cssHex = '#' + [r, g, b].map(n => n.toString(16).padStart(2, '0')).join('');
   }
 
   toString() {
