@@ -48,7 +48,7 @@
 </style>
 
 <script>
-  import { SegmentedControl } from "./SegmentedControl";
+  import { SegmentedControl } from './SegmentedControl';
 
   export default {
     props: {

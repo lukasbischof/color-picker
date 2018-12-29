@@ -31,10 +31,10 @@
 
 <script>
   import I18n from '@/messages/en';
-  import circleImage from "@/assets/circleImage";
-  import { Vec2, Vec2Substract } from "@/math/Vec2";
-  import ColorPickerEventTypes from "@/event";
-  import { getColorAtPoint, deviceScale } from "../shared/helpers";
+  import circleImage from '@/assets/circleImage';
+  import { Vec2, Vec2Substract } from '@/math/Vec2';
+  import ColorPickerEventTypes from '@/event';
+  import { getColorAtPoint, deviceScale } from '../shared/helpers';
 
   export default {
     data() {

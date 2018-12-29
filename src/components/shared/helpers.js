@@ -1,4 +1,4 @@
-import Color from "@/models/Color";
+import Color from '@/models/Color';
 
 export function getColorAtPoint(ctx, x, y, scale = 1) {
   const data = ctx.getImageData(x * scale, y * scale, 1, 1).data;

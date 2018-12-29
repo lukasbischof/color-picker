@@ -28,9 +28,9 @@
 </style>
 
 <script>
-  import ColorPickerEventTypes from "@/event";
+  import ColorPickerEventTypes from '@/event';
   import I18n from '@/messages/en';
-  import { clamp, deviceScale, getColorAtPoint, positionInCanvas } from "../shared/helpers";
+  import { clamp, deviceScale, getColorAtPoint, positionInCanvas } from '../shared/helpers';
 
   export default {
     data() {

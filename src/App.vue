@@ -19,12 +19,12 @@
   import {
     SegmentedControlHeader,
     SegmentedControlBody
-  } from "@/components/segmentedControl/SegmentedControl";
+  } from '@/components/segmentedControl/SegmentedControl';
   import Wheel from '@/components/panels/Wheel';
   import Spectrum from '@/components/panels/Spectrum';
-  import Palette from "@/components/panels/Palette";
-  import RGBA from "@/components/panels/RGBA";
-  import { Segment, SegmentedControl } from "./components/segmentedControl/SegmentedControl";
+  import Palette from '@/components/panels/Palette';
+  import RGBA from '@/components/panels/RGBA';
+  import { Segment, SegmentedControl } from './components/segmentedControl/SegmentedControl';
   import I18n from '@/messages/en';
 
   export default {
