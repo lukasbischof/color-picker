@@ -5,7 +5,7 @@ export function getColorAtPoint(ctx, x, y, scale = 1) {
   if (!data)
     return undefined;
 
-  return new Color(...data);
+  return new Color(...data.subarray(0, 3));
 }
 
 export function deviceScale() {

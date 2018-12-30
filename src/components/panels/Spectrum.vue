@@ -31,8 +31,15 @@
   import ColorPickerEventTypes from '@/event';
   import I18n from '@/messages/en';
   import { clamp, deviceScale, getColorAtPoint, positionInCanvas } from '../shared/helpers';
+  import Color from '../../models/Color';
 
   export default {
+    props: {
+      value: {
+        type: Color,
+        default: () => new Color(0, 255, 0)
+      }
+    },
     data() {
       const scale = deviceScale();
       const actualSize = {
@@ -134,8 +141,9 @@
         this.drawBackground();
         this.drawMark(...positionInCanvas(this.canvas.element, e).array.map(pos => pos - 6));
 
-        const backgroundColor = getColorAtPoint(this.ctx, this.marker.x, this.marker.y, this.canvas.scale).cssRGBA;
-        this.$refs.preview.style.backgroundColor = backgroundColor;
+        const currentColor = getColorAtPoint(this.ctx, this.marker.x, this.marker.y, this.canvas.scale);
+        this.$refs.preview.style.backgroundColor = currentColor.cssRGBA;
+        this.$emit('input', currentColor);
       }
     }
   };

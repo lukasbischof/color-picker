@@ -25,4 +25,8 @@ export default class ColorPickerEventTypes {
       color
     });
   }
+
+  static UpdatedColor(color) {
+    return new ColorPickerEvent('update', { color });
+  }
 }

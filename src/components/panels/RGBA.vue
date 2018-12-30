@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div :style="'background-color: ' + backgroundColor" class="preview"></div>
+    <div :style="{ backgroundColor }" class="preview"></div>
     <div class="container">
       <div v-for="element in elements" :key="element.id" :class="{ active: element.active }" class="rgba-group">
         <input :id="element.id"
@@ -8,12 +8,13 @@
                :max="element.max"
                :title="`${element.name} (minimum: 0, maximum: ${element.max})`"
                :step="element.step"
-               v-model="element.value"
+               :value="element.value"
                min="0"
                type="number"
                class="rgba-input"
                @focus="element.focus(true)"
-               @blur="element.focus(false)">
+               @blur="element.focus(false)"
+               @input="inputValueChanged(element, $event.target.value)">
         <label :for="element.id" class="rgba-input-label">{{ element.short }}</label>
       </div>
     </div>
@@ -44,12 +45,18 @@
 
   export default {
     name: 'RGBA',
+    props: {
+      value: {
+        type: Color,
+        default: () => new Color(0, 255, 0)
+      }
+    },
     data() {
       return {
         elements: [
-          element(255, 0, 'Red'),
-          element(255, 255, 'Green'),
-          element(255, 0, 'Blue'),
+          element(255, this.value.r, 'Red'),
+          element(255, this.value.g, 'Green'),
+          element(255, this.value.b, 'Blue'),
           element(1, 1, 'Alpha', 0.1)
         ]
       };
@@ -60,6 +67,14 @@
       },
       backgroundColor() {
         return this.currentColor.cssRGBA;
+      }
+    },
+    methods: {
+      inputValueChanged(element, newValue) {
+        element.value = newValue;
+        this.$nextTick(() => {
+          this.$emit('input', this.currentColor);
+        });
       }
     }
   };

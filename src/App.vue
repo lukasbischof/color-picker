@@ -44,10 +44,10 @@
       const i18n = I18n.components.app;
       return {
         segmentedControl: new SegmentedControl([
-          new Segment('circle', i18n.segmentedControl.wheel, h => <Wheel onError={this.logError} on-input={c => this.currentColor = c} />),
-          new Segment('spectrum', i18n.segmentedControl.spectrum, h => <Spectrum onError={this.logError} />),
-          new Segment('palette', i18n.segmentedControl.palette, h => <Palette onError={this.logError} />),
-          new Segment('rgba', i18n.segmentedControl.rgba, h => <RGBA onError={this.logError} />)
+          new Segment('circle', i18n.segmentedControl.wheel, h => <Wheel onError={this.logError} on-input={this.colorUpdated} />),
+          new Segment('spectrum', i18n.segmentedControl.spectrum, h => <Spectrum onError={this.logError} on-input={this.colorUpdated} />),
+          new Segment('palette', i18n.segmentedControl.palette, h => <Palette onError={this.logError} on-input={this.colorUpdated} />),
+          new Segment('rgba', i18n.segmentedControl.rgba, h => <RGBA onError={this.logError} on-input={this.colorUpdated} />)
         ]),
         i18n,
         currentColor: new Color(0, 255, 0)
@@ -62,11 +62,13 @@
         ColorPickerEventTypes.Dismiss().dispatch(this);
       },
       chooseButtonClicked() {
-        this.colorChosen(this.currentColor);
+        console.log('chose ' + this.currentColor);
+        ColorPickerEventTypes.Dismiss(this.currentColor).dispatch(this);
       },
-      colorChosen(color) {
-        console.log('chose ' + color);
-        ColorPickerEventTypes.Dismiss(color).dispatch(this);
+      colorUpdated(color) {
+        console.log(color);
+        this.currentColor = color;
+        ColorPickerEventTypes.UpdatedColor(color).dispatch(this);
       }
     },
   };

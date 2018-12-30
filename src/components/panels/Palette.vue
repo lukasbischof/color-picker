@@ -68,6 +68,7 @@
     methods: {
       activate(colorItem) {
         this.activeColor = colorItem;
+        this.$emit('input', colorItem);
       }
     }
   };
