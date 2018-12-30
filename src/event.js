@@ -20,10 +20,16 @@ export default class ColorPickerEventTypes {
     });
   }
 
-  static Dismiss(color = undefined) {
-    return new ColorPickerEvent('dismiss', {
-      color
-    });
+  static Dismiss() {
+    return new ColorPickerEvent('dismiss', {});
+  }
+
+  static Choose(color) {
+    return new ColorPickerEvent('chose', { color });
+  }
+
+  static Dismissed() {
+    return new ColorPickerEvent('dismissed', {});
   }
 
   static UpdatedColor(color) {

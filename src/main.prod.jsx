@@ -5,27 +5,51 @@ Vue.config.productionTip = false;
 
 window.ColorPicker = class ColorPicker {
   constructor(options) {
-    const t = this;
-
     this.options = options;
-    this.vm = new Vue({
+    this.callback = undefined;
+    this._vm = new Vue({
       render: h => (
-        <App onError={t.onError}/>
+        <App ref={'app'}
+             onError={this._onError}
+             onDismiss={this._onDismiss.bind(this)}
+             onChose={this._onChose.bind(this)}
+             onDismissed={this._onDismissed.bind(this)}/>
       )
     });
   }
 
-  present() {
+  present(callback = undefined) {
     const mount = document.createElement('div');
     document.body.appendChild(mount);
-    this.vm.$mount(mount);
+    this._vm.$mount(mount);
+    this.callback = callback;
   }
 
   dismiss() {
-
+    this._vm.$refs.app.dismiss();
   }
 
-  onError(error) {
+  _onError(error) {
     throw new Error(error.detail.message);
+  }
+
+  _onChose(event) {
+    const color = event.detail.color;
+    this._callCallback(color);
+    this.dismiss();
+  }
+
+  _onDismiss() {
+    this._callCallback();
+    this.dismiss();
+  }
+
+  _onDismissed() {
+    document.body.removeChild(this._vm.$el);
+    this._vm.$destroy();
+  }
+
+  _callCallback(color) {
+    if (this.callback) this.callback(color);
   }
 };

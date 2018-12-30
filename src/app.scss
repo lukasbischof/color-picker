@@ -17,7 +17,7 @@
   height: 370px;
 
   &.dismiss {
-    animation: .25s color-picker-background-show ease-in reverse;
+    animation: .25s color-picker-background-dismiss ease-in;
   }
 }
 
@@ -59,22 +59,6 @@
   }
 }
 
-.CPRGBAInput {
-  width: 80px;
-  height: 40px;
-  vertical-align: middle;
-  border: 1px solid gray;
-  border-radius: 4px;
-  background-color: transparent;
-  font-family: "Helvatica neue", sans-serif;
-  font-size: 16px;
-  padding: 0 10px;
-
-  &:invalid {
-    border: 1px solid red;
-  }
-}
-
 .wrapper {
   background-color: rgba(0, 0, 0, 0.3);
   position: absolute;
@@ -85,4 +69,8 @@
   transition: .25s background-color ease-in;
   animation: .25s color-picker-wrapper-show ease-out;
   user-select: none;
+
+  &.dismiss {
+    animation: .25s color-picker-wrapper-dismiss ease-in;
+  }
 }

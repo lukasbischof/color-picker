@@ -1,7 +1,7 @@
 <template>
   <div id="color-picker">
-    <div class="wrapper" @click="dismiss"></div>
-    <div class="window">
+    <div ref="wrapper" class="wrapper" @click="dismissButtonClicked"></div>
+    <div ref="window" class="window">
       <div class="header">
         <span>{{ i18n.title }}</span>
         <segmented-control-header :segmented-control="segmentedControl" />
@@ -9,7 +9,7 @@
       <div class="body">
         <segmented-control-body :segmented-control="segmentedControl" />
       </div>
-      <color-picker-footer @cancel="dismiss" @choose="chooseButtonClicked" />
+      <color-picker-footer @cancel="dismissButtonClicked" @choose="chooseButtonClicked" />
     </div>
   </div>
 </template>
@@ -44,10 +44,10 @@
       const i18n = I18n.components.app;
       return {
         segmentedControl: new SegmentedControl([
-          new Segment('circle', i18n.segmentedControl.wheel, h => <Wheel onError={this.logError} on-input={this.colorUpdated} />),
-          new Segment('spectrum', i18n.segmentedControl.spectrum, h => <Spectrum onError={this.logError} on-input={this.colorUpdated} />),
-          new Segment('palette', i18n.segmentedControl.palette, h => <Palette onError={this.logError} on-input={this.colorUpdated} />),
-          new Segment('rgba', i18n.segmentedControl.rgba, h => <RGBA onError={this.logError} on-input={this.colorUpdated} />)
+          new Segment('circle', i18n.segmentedControl.wheel, h => <Wheel onError={this.logError} onInput={this.colorUpdated} />),
+          new Segment('spectrum', i18n.segmentedControl.spectrum, h => <Spectrum onError={this.logError} onInput={this.colorUpdated} />),
+          new Segment('palette', i18n.segmentedControl.palette, h => <Palette onError={this.logError} onInput={this.colorUpdated} />),
+          new Segment('rgba', i18n.segmentedControl.rgba, h => <RGBA onError={this.logError} onInput={this.colorUpdated} />)
         ]),
         i18n,
         currentColor: new Color(0, 255, 0)
@@ -58,15 +58,18 @@
         error.dispatch(this);
       },
       dismiss() {
-        console.log('dismiss');
+        this.$refs.window.classList.add('dismiss');
+        this.$refs.wrapper.classList.add('dismiss');
+        setTimeout(() => ColorPickerEventTypes.Dismissed().dispatch(this), 250);
+      },
+      dismissButtonClicked() {
         ColorPickerEventTypes.Dismiss().dispatch(this);
+        this.dismiss();
       },
       chooseButtonClicked() {
-        console.log('chose ' + this.currentColor);
-        ColorPickerEventTypes.Dismiss(this.currentColor).dispatch(this);
+        ColorPickerEventTypes.Choose(this.currentColor).dispatch(this);
       },
       colorUpdated(color) {
-        console.log(color);
         this.currentColor = color;
         ColorPickerEventTypes.UpdatedColor(color).dispatch(this);
       }

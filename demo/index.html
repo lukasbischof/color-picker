@@ -8,7 +8,9 @@
   <script type="text/javascript">
     function showPicker() {
       var picker = new ColorPicker({});
-      picker.present();
+      picker.present(function(color) {
+        if (color) document.body.style.backgroundColor = color.cssRGBA;
+      });
     }
   </script>
 </head>
