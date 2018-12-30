@@ -13,7 +13,7 @@ window.ColorPicker = class ColorPicker {
              onError={this._onError}
              onDismiss={this._onDismiss.bind(this)}
              onChose={this._onChose.bind(this)}
-             onDismissed={this._onDismissed.bind(this)}/>
+             onDismissed={this._onDismissed.bind(this)} />
       )
     });
   }
