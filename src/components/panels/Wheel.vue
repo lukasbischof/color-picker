@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div ref="preview" class="preview-bar"></div>
-    <div v-if="!ctx" class="messages">
+    <div ref="preview" :style="{ backgroundColor: currentColor.cssRgba }" class="preview-bar"></div>
+    <div v-if="error" class="messages">
       <p class="error-message">{{ messages.no_canvas_context }}</p>
     </div>
     <canvas
@@ -34,9 +34,14 @@
   import circleImage from '@/assets/circleImage';
   import { Vec2, Vec2Substract } from '@/math/Vec2';
   import ColorPickerEventTypes from '@/event';
-  import { getColorAtPoint, deviceScale } from '../shared/helpers';
+  import { getColorAtPoint, deviceScale, positionInCanvas } from '../shared/helpers';
   import Color from '@/models/Color';
 
+  const INNER_RADIUS_MARKER = 6;
+  const OUTER_LINE_WIDTH_MARKER = 2;
+  const CANVAS_PADDING = INNER_RADIUS_MARKER + 2 * OUTER_LINE_WIDTH_MARKER;
+
+  // noinspection JSUnusedGlobalSymbols
   export default {
     props: {
       value: {
@@ -51,7 +56,6 @@
 
       return {
         messages: I18n.shared.messages,
-        ctx: undefined,
         marker: {
           markX: 0,
           markY: 0
@@ -59,18 +63,33 @@
         canvas: {
           scale,
           actualSize: actualSize,
-          size: actualSize * scale
+          size: actualSize * scale,
         },
+        currentColor: this.value,
+        error: false
       };
     },
 
+    computed: {
+      ctx() {
+        return this.$options.ctx;
+      },
+
+      canvasPadding() {
+        return this.$options.canvas.padding;
+      }
+    },
+
+    created() {
+      this.$options.canvas = { padding: CANVAS_PADDING };
+    },
+
     mounted() {
-      this.ctx = this.$refs.canvas.getContext('2d');
+      this.$options.ctx = this.$refs.canvas.getContext('2d');
 
       if (!this.ctx) {
-        ColorPickerEventTypes.Error('no canvas context').dispatch(this);
-
-        return;
+        this.error = true;
+        return ColorPickerEventTypes.Error('no canvas context').dispatch(this);
       }
 
       this.ctx.scale(this.canvas.scale, this.canvas.scale);
@@ -79,21 +98,14 @@
         this.drawBackground(image);
         this.drawMark(30, 30);
 
-        this.ctx.canvas.addEventListener('mousedown', e => {
-          const mouseMove = e => {
-            this.ctx.clearRect(0, 0, this.canvas.actualSize, this.canvas.actualSize);
-            this.drawBackground(image);
-            this.drawMark(e.offsetX - 6, e.offsetY - 6);
-            const currentColor = getColorAtPoint(this.ctx, this.marker.markX, this.marker.markY, this.canvas.scale);
-            this.$refs.preview.style.backgroundColor = currentColor.cssHex;
-            this.$emit('input', currentColor);
-          };
+        this.ctx.canvas.addEventListener('mousedown', event => {
+          const mouseMove = this.mouseMove(image);
 
-          mouseMove(e); // To move the mark at the right position
+          mouseMove(event);
 
-          this.ctx.canvas.addEventListener('mousemove', mouseMove, false);
+          document.addEventListener('mousemove', mouseMove, false);
           document.addEventListener('mouseup', () => {
-            this.ctx.canvas.removeEventListener('mousemove', mouseMove, false);
+            document.removeEventListener('mousemove', mouseMove, false);
           });
         });
       });
@@ -106,33 +118,44 @@
         image.src = circleImage;
       },
 
+      mouseMove(image) {
+        return e => {
+          this.ctx.clearRect(0, 0, this.canvas.actualSize, this.canvas.actualSize);
+          this.drawBackground(image);
+          const position = positionInCanvas(this.ctx.canvas, e).array.map(pos => pos - 6);
+          this.drawMark(...position);
+          this.currentColor = getColorAtPoint(this.ctx, this.marker.markX, this.marker.markY, this.canvas.scale);
+          this.$emit('input', this.currentColor);
+        };
+      },
+
       drawBackground(image) {
-        this.ctx.drawImage(image, 0, 0, this.canvas.actualSize, this.canvas.actualSize);
+        const dimensions = this.canvas.actualSize - this.canvasPadding * 2;
+        this.ctx.drawImage(image, this.canvasPadding, this.canvasPadding, dimensions, dimensions);
       },
 
       drawMark(x, y) {
-        const radMin = 6;
-        const radius = this.canvas.actualSize / 2;
-        const center = new Vec2(radius, radius);
+        const radius = this.canvas.actualSize / 2 - this.canvasPadding;
+        const center = new Vec2(radius + this.canvasPadding, radius + this.canvasPadding);
         const pos = Vec2Substract(center, new Vec2(x, y));
 
         if (pos.length > radius) {
           pos.setLength(radius);
-          x = center.x + -pos.x;
-          y = center.y + -pos.y;
+          x = center.x - pos.x;
+          y = center.y - pos.y;
         }
 
         this.ctx.beginPath();
-        this.ctx.lineWidth = 2;
+        this.ctx.lineWidth = OUTER_LINE_WIDTH_MARKER;
         this.ctx.strokeStyle = 'black';
-        this.ctx.arc(x, y, radMin + 2, 0, Math.PI * 2, true);
+        this.ctx.arc(x, y, INNER_RADIUS_MARKER + OUTER_LINE_WIDTH_MARKER, 0, Math.PI * 2, true);
         this.ctx.stroke();
         this.ctx.closePath();
 
         this.ctx.beginPath();
         this.ctx.lineWidth = 1;
         this.ctx.strokeStyle = 'white';
-        this.ctx.arc(x, y, radMin, 0, Math.PI * 2, true);
+        this.ctx.arc(x, y, INNER_RADIUS_MARKER, 0, Math.PI * 2, true);
         this.ctx.stroke();
         this.ctx.closePath();
 
