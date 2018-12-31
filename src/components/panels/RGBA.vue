@@ -66,7 +66,7 @@
         return new Color(...this.elements.map(element => element.value));
       },
       backgroundColor() {
-        return this.currentColor.cssRGBA;
+        return this.currentColor.cssRgba;
       }
     },
     methods: {

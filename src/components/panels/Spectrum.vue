@@ -142,7 +142,7 @@
         this.drawMark(...positionInCanvas(this.canvas.element, e).array.map(pos => pos - 6));
 
         const currentColor = getColorAtPoint(this.ctx, this.marker.x, this.marker.y, this.canvas.scale);
-        this.$refs.preview.style.backgroundColor = currentColor.cssRGBA;
+        this.$refs.preview.style.backgroundColor = currentColor.cssRgba;
         this.$emit('input', currentColor);
       }
     }

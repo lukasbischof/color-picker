@@ -19,7 +19,7 @@ export default class Color {
     return (this.r << 16) | (this.g << 8) | this.b;
   }
 
-  get cssRGBA() {
+  get cssRgba() {
     return `rgba(${[this.r, this.g, this.b, this.a].join(',')})`;
   }
 
@@ -27,17 +27,17 @@ export default class Color {
     return '#' + [this.r, this.g, this.b].map(n => n.toString(16).padStart(2, '0')).join('');
   }
 
-  get cssHSL() {
-    const { h, s, l } = this.toHSL();
+  get cssHsl() {
+    const { h, s, l } = this.toHsl();
     const hslString = h * 360 + ',' + [s, l].map(v => `${Math.floor(v * 100)}%`).join(',');
     return `hsl(${hslString})`;
   }
 
   toString() {
-    return `[Color: ${this.cssRGBA}, (${this.cssHex})]`;
+    return `[Color: ${this.cssRgba}, (${this.cssHex})]`;
   }
 
-  toHSL() {
+  toHsl() {
     let { r, g, b } = this;
     r /= 255;
     g /= 255;
