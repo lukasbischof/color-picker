@@ -27,8 +27,45 @@ export default class Color {
     return '#' + [this.r, this.g, this.b].map(n => n.toString(16).padStart(2, '0')).join('');
   }
 
+  get cssHSL() {
+    const { h, s, l } = this.toHSL();
+    const hslString = h * 360 + ',' + [s, l].map(v => `${Math.floor(v * 100)}%`).join(',');
+    return `hsl(${hslString})`;
+  }
+
   toString() {
     return `[Color: ${this.cssRGBA}, (${this.cssHex})]`;
+  }
+
+  toHSL() {
+    let { r, g, b } = this;
+    r /= 255;
+    g /= 255;
+    b /= 255;
+
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+
+    let l = (max + min) / 2;
+
+    if (max === min) {
+      return { h: 0, s: 0, l };
+    }
+
+    const d = max - min;
+    let h = 0;
+
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4; break;
+    }
+
+    return {
+      h: h / 6,
+      s: l > 0.5 ? d / (2 - max - min) : d / (max + min),
+      l
+    };
   }
 };
 
