@@ -1,13 +1,46 @@
 # color-picker
 
-> A minimal color picker js library
+A minimal JavaScript color picker
 
 <img width="322" alt="color-picker" src="https://user-images.githubusercontent.com/8350985/50245892-01396700-03d4-11e9-952b-ac32fed4603e.png">
 
 [> Demo](http://color-picker.lukasbischof.ch/demo/index.html)
 
+## Installation
+
+Include the stylesheet and the script in your project:
+
+```html
+<script src="dist/js/color-picker.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="dist/css/color-picker.min.css" />
+```
+
+## Usage
+
+To create a new instance, use:
+
+```javascript
+var colorPicker = new ColorPicker({
+  // options
+})
+```
+
+to present the picker, use:
+
+```javascript
+colorPicker.present(function(color) {
+  // Do some stuff, e.g.:
+  
+  if (color) {
+    // Color can be undefined if the user pressed on cancel
+    document.getElementById('elementToStyle').style.color = color.cssHex;
+  }
+});
+```
+
+For more detailed documentation, see the wiki.
+
 ## Development
-### Build Setup
 
 ``` bash
 # install dependencies
