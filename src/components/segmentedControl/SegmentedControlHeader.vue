@@ -50,6 +50,7 @@
 <script>
   import { SegmentedControl } from './SegmentedControl';
 
+  // noinspection JSUnusedGlobalSymbols
   export default {
     props: {
       segmentedControl: {

@@ -29,6 +29,7 @@
   import ColorPickerEventTypes from './event';
   import Color from './models/Color';
 
+  // noinspection JSUnusedGlobalSymbols
   export default {
     name: 'App',
     components: {

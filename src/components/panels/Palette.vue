@@ -38,6 +38,7 @@
 <script>
   import Color from '@/models/Color';
 
+  // noinspection JSUnusedGlobalSymbols
   export default {
     data() {
       const colors = {

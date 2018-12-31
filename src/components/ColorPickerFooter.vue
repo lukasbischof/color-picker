@@ -47,6 +47,7 @@
 <script>
   import I18n from '@/messages/en';
 
+  // noinspection JSUnusedGlobalSymbols
   export default {
     name: 'ColorPickerFooter',
     data() {

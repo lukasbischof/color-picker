@@ -43,6 +43,7 @@
     };
   }
 
+  // noinspection JSUnusedGlobalSymbols
   export default {
     name: 'RGBA',
     props: {

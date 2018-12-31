@@ -33,6 +33,7 @@
   import { clamp, deviceScale, getColorAtPoint, positionInCanvas } from '../shared/helpers';
   import Color from '../../models/Color';
 
+  // noinspection JSUnusedGlobalSymbols
   export default {
     props: {
       value: {
