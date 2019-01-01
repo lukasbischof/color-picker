@@ -1,8 +1,12 @@
 {
   "name": "color-picker",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A minimal color picker js library",
-  "keywords": ["color", "picker", "color picker"],
+  "keywords": [
+    "color",
+    "picker",
+    "color picker"
+  ],
   "homepage": "https://github.com/lukasbischof/color-picker",
   "author": "Lukas Bischof <polinderis@gmail.com>",
   "license": "MIT",
