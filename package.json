@@ -1,15 +1,20 @@
 {
   "name": "color-picker",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A minimal color picker js library",
+  "keywords": ["color", "picker", "color picker"],
+  "homepage": "https://github.com/lukasbischof/color-picker",
   "author": "Lukas Bischof <polinderis@gmail.com>",
-  "private": true,
+  "license": "MIT",
+  "main": "dist/js/color-picker.min.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lukasbischof/color-picker.git"
+  },
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",
-    "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src/ test/e2e/specs",
     "build": "node build/build.js"
   },

@@ -3,7 +3,7 @@ import App from './App';
 
 Vue.config.productionTip = false;
 
-window.ColorPicker = class ColorPicker {
+class ColorPicker {
   constructor(options) {
     this.options = options;
     this.callback = undefined;
@@ -52,4 +52,9 @@ window.ColorPicker = class ColorPicker {
   _callCallback(color) {
     if (this.callback) this.callback(color);
   }
-};
+}
+
+module.exports = ColorPicker;
+if (typeof window !== 'undefined') {
+  window.ColorPicker = ColorPicker;
+}
