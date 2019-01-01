@@ -38,7 +38,7 @@ colorPicker.present(function(color) {
 });
 ```
 
-For more detailed documentation, see the wiki.
+For more detailed documentation, see the [wiki](https://github.com/lukasbischof/color-picker/wiki).
 
 ## Development
 
