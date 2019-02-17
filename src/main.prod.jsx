@@ -54,7 +54,10 @@ class ColorPicker {
   }
 }
 
-module.exports = ColorPicker;
+if (typeof module !== 'undefined' && Object.getOwnPropertyDescriptor(module, 'exports').configurable) {
+  module.exports = ColorPicker;
+}
+
 if (typeof window !== 'undefined') {
   window.ColorPicker = ColorPicker;
 }
