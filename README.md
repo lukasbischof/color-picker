@@ -4,7 +4,7 @@ A minimal JavaScript color picker
 
 <img width="322" alt="color-picker" src="https://user-images.githubusercontent.com/8350985/50245892-01396700-03d4-11e9-952b-ac32fed4603e.png">
 
-[> Demo](http://color-picker.lukasbischof.ch/demo/index.html)
+[> Demo](https://color-picker.lukasbischof.ch/demo/index.html)
 
 ## Installation
 
