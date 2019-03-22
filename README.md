@@ -1,3 +1,5 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/7fa15d24d5836e51f81e/maintainability)](https://codeclimate.com/github/lukasbischof/color-picker/maintainability)
+
 # color-picker
 
 A minimal JavaScript color picker
