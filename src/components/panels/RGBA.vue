@@ -9,6 +9,7 @@
                :title="`${element.name} (minimum: 0, maximum: ${element.max})`"
                :step="element.step"
                :value="element.value"
+               :aria-label="`${element.name} slider`"
                min="0"
                type="number"
                class="rgba-input"

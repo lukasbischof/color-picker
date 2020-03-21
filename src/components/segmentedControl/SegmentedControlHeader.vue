@@ -1,10 +1,12 @@
 <template>
   <div class="segmented-control-header">
-    <div v-for="segment in segmentedControl.segments"
-         :key="segment.id"
-         :class="{active: segment === segmentedControl.activeSegment}"
-         class="segment"
-         @click="switchSegment(segment)">
+    <div
+      v-for="segment in segmentedControl.segments"
+      :key="segment.id"
+      :class="{active: segment === segmentedControl.activeSegment}"
+      class="segment"
+      @click="switchSegment(segment)"
+    >
       {{ segment.name }}
     </div>
   </div>

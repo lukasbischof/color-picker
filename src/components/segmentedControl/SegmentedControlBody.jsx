@@ -1,5 +1,5 @@
-import Vue from "vue";
-import { Segment, SegmentedControl } from "./SegmentedControl";
+import Vue from 'vue';
+import { SegmentedControl } from './SegmentedControl';
 
 export default Vue.component('segmented-control-body', {
   props: {

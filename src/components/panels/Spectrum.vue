@@ -83,8 +83,10 @@
       this.canvas.element.addEventListener('mousedown', e => {
         this.mouseMove(e);
 
-        document.addEventListener('mousemove', this.mouseMove, false);
-        document.addEventListener('mouseup', () => {
+        const addListener = document.addEventListener;
+
+        addListener('mousemove', this.mouseMove, false);
+        addListener('mouseup', () => {
           document.removeEventListener('mousemove', this.mouseMove, false);
         });
       });
